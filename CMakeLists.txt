@@ -25,23 +25,23 @@ SET(src-cuda init.cu)
 
 FILE(GLOB luasrc *.lua)
 
-CUDA_ADD_LIBRARY(cunn MODULE ${src-cuda})
-TARGET_LINK_LIBRARIES(cunn luaT THC TH)
+CUDA_ADD_LIBRARY(cunnsparse MODULE ${src-cuda})
+TARGET_LINK_LIBRARIES(cunnsparse luaT THC TH)
 IF(APPLE)
-  SET_TARGET_PROPERTIES(cunn PROPERTIES
+  SET_TARGET_PROPERTIES(cunnsparse PROPERTIES
     LINK_FLAGS "-undefined dynamic_lookup")
 ENDIF()
 
 ### Torch packages supposes libraries prefix is "lib"
-SET_TARGET_PROPERTIES(cunn PROPERTIES
+SET_TARGET_PROPERTIES(cunnsparse PROPERTIES
   PREFIX "lib"
   IMPORT_PREFIX "lib")
 
-INSTALL(TARGETS cunn
+INSTALL(TARGETS cunnsparse
   RUNTIME DESTINATION "${Torch_INSTALL_LUA_CPATH_SUBDIR}"
   LIBRARY DESTINATION "${Torch_INSTALL_LUA_CPATH_SUBDIR}")
 
 INSTALL(
   FILES
   ${luasrc}
-  DESTINATION "${Torch_INSTALL_LUA_PATH_SUBDIR}/cunn")
+  DESTINATION "${Torch_INSTALL_LUA_PATH_SUBDIR}/cunnsparse")

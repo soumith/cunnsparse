@@ -1,6 +1,6 @@
 #include "utils.h"
 
-static int cunn_TemporalConvolution_updateOutput(lua_State *L)
+static int cunn_SparseLinear_updateOutput(lua_State *L)
 {
   THCState *state = getCutorchState(L);
   THCudaTensor *input = (THCudaTensor*)luaT_checkudata(L, 2, "torch.CudaTensor");
@@ -133,7 +133,7 @@ static int cunn_TemporalConvolution_updateOutput(lua_State *L)
   return 1;
 }
 
-static int cunn_TemporalConvolution_updateGradInput(lua_State *L)
+static int cunn_SparseLinear_updateGradInput(lua_State *L)
 {
   THCState *state = getCutorchState(L);
   THCudaTensor *input = (THCudaTensor*)luaT_checkudata(L, 2, "torch.CudaTensor");
@@ -235,7 +235,7 @@ static int cunn_TemporalConvolution_updateGradInput(lua_State *L)
   return 1;
 }
 
-static int cunn_TemporalConvolution_accGradParameters(lua_State *L)
+static int cunn_SparseLinear_accGradParameters(lua_State *L)
 {
   THCState *state = getCutorchState(L);
   THCudaTensor *input = (THCudaTensor*)luaT_checkudata(L, 2, "torch.CudaTensor");
@@ -353,16 +353,16 @@ static int cunn_TemporalConvolution_accGradParameters(lua_State *L)
   return 1;
 }
 
-static const struct luaL_Reg cunn_TemporalConvolution__ [] = {
-  {"TemporalConvolution_updateOutput", cunn_TemporalConvolution_updateOutput},
-  {"TemporalConvolution_updateGradInput", cunn_TemporalConvolution_updateGradInput},
-  {"TemporalConvolution_accGradParameters", cunn_TemporalConvolution_accGradParameters},
+static const struct luaL_Reg cunn_SparseLinear__ [] = {
+  {"SparseLinear_updateOutput", cunn_SparseLinear_updateOutput},
+  {"SparseLinear_updateGradInput", cunn_SparseLinear_updateGradInput},
+  {"SparseLinear_accGradParameters", cunn_SparseLinear_accGradParameters},
   {NULL, NULL}
 };
 
-static void cunn_TemporalConvolution_init(lua_State *L)
+static void cunnsparse_SparseLinear_init(lua_State *L)
 {
   luaT_pushmetatable(L, "torch.CudaTensor");
-  luaT_registeratname(L, cunn_TemporalConvolution__, "nn");
+  luaT_registeratname(L, cunn_SparseLinear__, "nn");
   lua_pop(L,1);
 }

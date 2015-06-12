@@ -1,7 +1,5 @@
 require "cutorch"
 require "nn"
-require "libcunn"
+require "libcunnsparse"
 
 include('test.lua')
-
-include('DataParallelTable.lua')
